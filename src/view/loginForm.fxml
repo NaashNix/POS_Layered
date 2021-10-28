@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="loginWindowContext" prefHeight="480.0" prefWidth="400.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginFormController">
+   <children>
+      <JFXButton layoutX="141.0" layoutY="331.0" onAction="#openRelatedDashboard" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: #2980b9;" text="LOGIN" textFill="WHITE" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="145.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="txtLoginUserName" layoutX="125.0" layoutY="197.0" prefHeight="24.0" prefWidth="197.0" promptText="User Name" text="cashi" AnchorPane.leftAnchor="101.0" />
+      <PasswordField fx:id="txtLoginPassword" layoutX="125.0" layoutY="264.0" prefHeight="24.0" prefWidth="197.0" promptText="Password" text="1234" AnchorPane.leftAnchor="101.0" />
+      <ImageView layoutX="152.0" layoutY="52.0" AnchorPane.leftAnchor="152.0">
+         <Image url="@../view/assets/images/icons8-administrator-male.png" />
+      </ImageView>
+      <ImageView fitHeight="90.0" fitWidth="405.0" layoutX="-5.0" layoutY="390.0">
+         <image>
+            <Image url="@../view/assets/images/loginBackground.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="118.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Login to contineu.">
+         <font>
+            <Font name="SF Compact Text Semibold" size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AddCustomerContext" prefHeight="526.0" prefWidth="411.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerFormController">
+   <children>
+      <ImageView fitHeight="53.0" fitWidth="411.0" layoutY="473.0">
+         <image>
+            <Image url="@../view/assets/images/loginBackground.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="21.0" layoutY="16.0" text="Add Customer ">
+         <font>
+            <Font name="Roboto" size="26.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCustomerName" layoutX="49.0" layoutY="84.0" prefHeight="40.0" prefWidth="315.0" promptText="Customer Name">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtCustomerAddress" layoutX="49.0" layoutY="195.0" prefHeight="40.0" prefWidth="315.0" promptText="Customer Address">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <TextField fx:id="txtCustomerCity" layoutX="49.0" layoutY="254.0" prefHeight="40.0" prefWidth="315.0" promptText="City">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <Label fx:id="lblCustomerID" layoutX="302.0" layoutY="15.0" prefHeight="33.0" prefWidth="103.0" text="ID : C001">
+         <font>
+            <Font name="Roboto Black" size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPostalCode" layoutX="49.0" layoutY="363.0" prefHeight="40.0" prefWidth="315.0" promptText="Postal Code">
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <ComboBox fx:id="cmbCrustTitle" layoutX="49.0" layoutY="139.0" prefHeight="40.0" prefWidth="315.0" promptText="Select Title" />
+      <ComboBox fx:id="cmbCustProvince" layoutX="49.0" layoutY="309.0" prefHeight="40.0" prefWidth="315.0" promptText="Select Province" />
+      <JFXButton fx:id="btnAddCustomer" layoutX="49.0" layoutY="428.0" onAction="#addCustomer" prefHeight="40.0" prefWidth="153.0" style="-fx-background-color: #2980b9;" text="ADD" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnClear" layoutX="209.0" layoutY="428.0" onAction="#clearForm" prefHeight="40.0" prefWidth="153.0" style="-fx-background-color: #7f8c8d;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

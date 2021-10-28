@@ -1,0 +1,7 @@
+.table-view:focused {
+  -fx-background-color: transparent /* or transparent or other preferred color */,-fx-box-border,-fx-control-inner-background;
+  -fx-background-insets: -1.4, 0, 1;
+  -fx-background-radius: 1.4, 0, 0;
+
+  -fx-padding: 1; /* 0.083333em; */
+}

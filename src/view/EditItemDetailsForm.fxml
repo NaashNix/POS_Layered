@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="509.0" prefWidth="360.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditItemDetailsFormController">
+   <children>
+      <ImageView fitHeight="91.0" fitWidth="360.0" layoutY="418.0">
+         <image>
+            <Image url="@../view/assets/images/loginBackground.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="14.0" layoutY="9.0" text="Edit Item">
+         <font>
+            <Font name="Roboto" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="241.0" layoutY="10.0" prefHeight="33.0" prefWidth="42.0" text="ID : ">
+         <font>
+            <Font name="Roboto Black" size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtItemDesc" layoutX="23.0" layoutY="96.0" prefHeight="40.0" prefWidth="315.0" promptText="Description">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtPackSize" layoutX="23.0" layoutY="173.0" prefHeight="40.0" prefWidth="315.0" promptText="Pack Size">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtQtyOnHand" layoutX="23.0" layoutY="248.0" prefHeight="40.0" prefWidth="315.0" promptText="Quantity On Hand">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtUnitPrice" layoutX="23.0" layoutY="326.0" prefHeight="40.0" prefWidth="219.0" promptText="Unit Price">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <JFXButton layoutX="23.0" layoutY="390.0" onAction="#btnItemEditDone" prefHeight="40.0" prefWidth="153.0" style="-fx-background-color: #2980b9;" text="DONE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnClear" layoutX="183.0" layoutY="390.0" onAction="#cancel" prefHeight="40.0" prefWidth="153.0" style="-fx-background-color: #7f8c8d;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <ImageView fx:id="restoreImageView" fitHeight="54.0" fitWidth="52.0" layoutX="269.0" layoutY="320.0" onMouseClicked="#restorePrevious" onMouseEntered="#restoreMouseEN" onMouseExited="#restoreMouseEX" preserveRatio="true">
+         <image>
+            <Image fx:id="imageRestore" url="@../view/assets/images/undoNormal.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Label fx:id="lblItemID" layoutX="281.0" layoutY="10.0" prefHeight="33.0" prefWidth="74.0">
+         <font>
+            <Font name="Roboto Black" size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="76.0" text="Item Description" />
+      <Label layoutX="23.0" layoutY="156.0" text="Packing Size" />
+      <Label layoutX="23.0" layoutY="228.0" text="Quantity On Hand" />
+      <Label layoutX="23.0" layoutY="307.0" text="Item Unit Price" />
+      <Pane layoutX="271.0" layoutY="322.0" onMouseClicked="#restorePrevious" onMouseEntered="#restoreMouseEN" onMouseExited="#restoreMouseEX" prefHeight="48.0" prefWidth="48.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Pane>
+   </children>
+</AnchorPane>

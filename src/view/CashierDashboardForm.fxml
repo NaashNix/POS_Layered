@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="612.0" prefWidth="920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CashierDashboardFormController">
+   <children>
+      <AnchorPane fx:id="dashboardsContext" layoutY="57.0" prefHeight="598.0" prefWidth="920.0" style="-fx-background-color: white;" />
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#2c3e50" height="115.0" layoutY="-56.0" stroke="#16a085" strokeType="INSIDE" strokeWidth="0.0" width="920.0" />
+      <Label fx:id="txtUserName" layoutX="772.0" layoutY="17.0" text="Cashi" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="dashboardTime" layoutX="429.0" layoutY="16.0" text="09:23:05 AM" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="708.0" layoutY="5.0">
+         <image>
+            <Image url="@../view/assets/images/icons8-male-user-60.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="dashboardWindowTitle" layoutX="29.0" layoutY="16.0" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
