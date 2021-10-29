@@ -1,9 +1,6 @@
 package dao;
 
-import dao.custom.impl.CustomerDAOImpl;
-import dao.custom.impl.ItemDAOImpl;
-import dao.custom.impl.OrderDAOImpl;
-import dao.custom.impl.OrderDetailsDAOImpl;
+import dao.custom.impl.*;
 
 public class DAOFactory implements SuperDAO{
     private static DAOFactory daoFactory;
@@ -29,13 +26,15 @@ public class DAOFactory implements SuperDAO{
                 return new OrderDAOImpl();
             case ORDER_DETAILS:
                 return new OrderDetailsDAOImpl();
+            case LOGIN:
+                return new LoginDAOImpl();
             default:
                 return null;
         }
     }
 
     public enum DAOTypes {
-        CUSTOMER, ITEM, ORDER,ORDER_DETAILS
+        CUSTOMER, ITEM, ORDER,ORDER_DETAILS,LOGIN
     }
 
 }

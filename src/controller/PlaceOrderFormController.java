@@ -306,10 +306,8 @@ public class PlaceOrderFormController{
     public void clearCart(ActionEvent actionEvent) {
         clearItemFormOnAction(actionEvent);
         MouseEvent mouseEvent = null;
-        // tableRowSelectedOrNot(mouseEvent);   --> *** LOOK THIS
         clearCustomer();
         txtOrderIDLabel.setText("Select Customer");
-        // itemCartTMS.clear();   --> *** LOOK THIS
         tblCart.refresh();
     }
 
@@ -476,6 +474,7 @@ public class PlaceOrderFormController{
 
     }
 
+    @FXML   // Remove selected item from the order.
     public void removeSelectedItemFromOrder(ActionEvent actionEvent) {
         cartQueue.remove(tableSelectedRow);
         calculateGrandTotal();
@@ -485,4 +484,14 @@ public class PlaceOrderFormController{
         //(mouseEvent);
     }
 
+    @FXML   // action for the customer id combo box.
+    public void customerIDSelectorOnAction(ActionEvent actionEvent) {
+        if (cmbItemSelector.getSelectionModel().isEmpty()){
+            cmbItemSelector.setDisable(true);
+            cmbItemSelector.getSelectionModel().clearSelection();
+
+        }else{
+            cmbItemSelector.setDisable(false);
+        }
+    }
 }

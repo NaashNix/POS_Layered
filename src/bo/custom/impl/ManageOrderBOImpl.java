@@ -10,6 +10,7 @@ import db.DbConnection;
 import dto.CartItemDTO;
 import dto.OrderDTO;
 import dto.OrderDetailsDTO;
+import dto.UpdateOrderDTO;
 import entity.Customer;
 import entity.Item;
 import entity.Order;
@@ -116,6 +117,38 @@ public class ManageOrderBOImpl implements ManageOrderBO {
     @Override
     public boolean deleteItemInTheOrder(String orderID, String itemID) throws SQLException, ClassNotFoundException {
         return orderDetailsDAO.deleteItemInTheOrder(orderID,itemID);
+    }
+
+    @Override
+    public String getItemName(String itemID) throws SQLException, ClassNotFoundException {
+        return itemDAO.getItemName(itemID);
+    }
+
+    @Override
+    public int getItemQuantityOnHand(String itemID) throws SQLException, ClassNotFoundException {
+        return itemDAO.getItemQuantityOnHand(itemID);
+    }
+
+    @Override
+    public boolean updateOrderedItem(UpdateOrderDTO dto) throws SQLException,ClassNotFoundException{
+        // Get the connection.
+        Connection connection = DbConnection.getInstance().getConnection();
+        connection.setAutoCommit(false);
+
+        if (itemDAO.updateItemQuantity(dto.getItemID(), dto.getQtyOnHand())){
+            OrderDetails orderDetails = new OrderDetails(dto.getOrderID(), dto.getItemID(), dto.getRequestedAmount()
+            ,dto.getDiscount());
+            if (orderDetailsDAO.updateOrderDetail(orderDetails)){
+                connection.commit();
+                connection.setAutoCommit(true);
+                return true;
+            }
+        }
+
+        connection.rollback();
+        connection.setAutoCommit(true);
+        return false;
+
     }
 
 }

@@ -1,9 +1,6 @@
 package bo;
 
-import bo.custom.impl.CustomerBOImpl;
-import bo.custom.impl.ItemBOImpl;
-import bo.custom.impl.ManageOrderBOImpl;
-import bo.custom.impl.PlaceOrderBOImpl;
+import bo.custom.impl.*;
 
 public class BoFactory {
     private static BoFactory boFactory;
@@ -29,13 +26,15 @@ public class BoFactory {
                 return new ItemBOImpl();
             case MANAGE_ORDERS:
                 return new ManageOrderBOImpl();
+            case LOGIN:
+                return new LoginBOImpl();
             default:
                 return null;
         }
     }
 
     public enum BoTypes{
-        PLACE_ORDER,CUSTOMER,ITEM,MANAGE_ORDERS
+        PLACE_ORDER,CUSTOMER,ITEM,MANAGE_ORDERS, LOGIN
     }
 
 }

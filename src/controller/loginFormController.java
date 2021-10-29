@@ -1,8 +1,8 @@
 package controller;
 
-import db.DbConnection;
+import bo.BoFactory;
+import bo.custom.LoginBO;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -14,9 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class loginFormController {
@@ -25,27 +22,22 @@ public class loginFormController {
     public PasswordField txtLoginPassword;
     public AnchorPane loginWindowContext;
     public static String setUserName;
-
+    private final LoginBO loginBO = (LoginBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.LOGIN);
 
     public void openRelatedDashboard(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
 
         String id = txtLoginUserName.getText();
         setUserName = txtLoginUserName.getText();
+        String theUserRoll = loginBO.getTheUserRoll(id);
 
-        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection()
-                .prepareStatement("SELECT * FROM Users WHERE id=?");
-        preparedStatement.setObject(1,id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()){
-
-            switch (resultSet.getString("roll")) {
+            switch (theUserRoll) {
                 case "admin": {
-                    adminLoginChecker(resultSet,actionEvent);
+                    adminLoginChecker(id,actionEvent);
                     break;
                 }
 
                 case "cashi": {
-                    cashierLoginChecker(resultSet,actionEvent);
+                    cashierLoginChecker(id,actionEvent);
                     break;
                 }
 
@@ -58,19 +50,15 @@ public class loginFormController {
                     new Alert(Alert.AlertType.ERROR, "Invalid User roll");
                 }
             }
-            System.out.println("HEllo");
-        }else{
-            new Alert(Alert.AlertType.ERROR,"Invalid ID").show();
         }
-    }
 
     private void managerLoginChecker() {
-        System.out.println("manager");
+        throw new UnsupportedOperationException("Not Supported yet");
     }
 
-    private void cashierLoginChecker(ResultSet resultSet,ActionEvent actionEvent) throws IOException, SQLException {
+    private void cashierLoginChecker(String userID,ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
 
-        if (txtLoginPassword.getText().equals(resultSet.getString("password"))){
+        if (txtLoginPassword.getText().equals(loginBO.getPasswordByID(userID))){
             Parent load = FXMLLoader.load(getClass().getResource("../view/CashierDashboardForm.fxml"));
             Scene scene = new Scene(load);
             Stage stage = new Stage();
@@ -86,8 +74,8 @@ public class loginFormController {
         }
     }
 
-    private void adminLoginChecker(ResultSet resultSet,ActionEvent actionEvent) throws SQLException, IOException {
-        if(txtLoginPassword.getText().equals(resultSet.getString("password"))){
+    private void adminLoginChecker(String userID,ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
+        if(txtLoginPassword.getText().equals(loginBO.getPasswordByID(userID))){
             Parent load = FXMLLoader.load(getClass().getResource("../view/SystemAdminDashboardFrom.fxml"));
             Scene scene = new Scene(load);
             Stage stage = new Stage();

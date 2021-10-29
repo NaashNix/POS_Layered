@@ -26,12 +26,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean delete(String s) {
-        return false;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override
     public boolean update(Customer customer) {
-        return false;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override

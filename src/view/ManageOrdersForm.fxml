@@ -45,7 +45,7 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnEdit" buttonType="RAISED" disable="true" layoutX="672.0" layoutY="425.0" onMouseClicked="#orderEditConfirm" prefHeight="28.0" prefWidth="86.0" style="-fx-background-color: #2980b9;" text="Edit" textFill="WHITE">
+      <JFXButton fx:id="btnEdit" buttonType="RAISED" disable="true" layoutX="672.0" layoutY="425.0" onMouseClicked="#btn_itemEdit" prefHeight="28.0" prefWidth="86.0" style="-fx-background-color: #2980b9;" text="Edit" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
@@ -140,7 +140,7 @@
             </Label>
             <Label fx:id="orderIDLabel" layoutX="84.0" layoutY="41.0" prefHeight="33.0" prefWidth="147.0" textFill="WHITE">
                <font>
-                  <Font name="Roboto Black" size="23.0" />
+                  <Font name="SF Compact Text Semibold" size="22.0" />
                </font>
             </Label>
             <Label layoutX="51.0" layoutY="95.0" text="Item Code : " textFill="WHITE">
@@ -150,7 +150,7 @@
             </Label>
             <Label fx:id="itemCodeLabel" layoutX="201.0" layoutY="96.0" prefHeight="26.0" prefWidth="137.0" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="22.0" />
+                  <Font name="SF Compact Text Semibold" size="22.0" />
                </font>
             </Label>
             <Label layoutX="21.0" layoutY="199.0" text="Qty. On Hand" textFill="WHITE">
@@ -158,7 +158,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="txtQtyOnHand" layoutX="41.0" layoutY="236.0" prefHeight="26.0" prefWidth="104.0" textFill="WHITE">
+            <Label fx:id="txtQtyOnHand" layoutX="36.0" layoutY="233.0" prefHeight="26.0" prefWidth="104.0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
@@ -170,20 +170,20 @@
             </Label>
             <Label fx:id="txtItemName" layoutX="201.0" layoutY="131.0" prefHeight="26.0" prefWidth="137.0" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="22.0" />
+                  <Font name="SF Compact Text Semibold" size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="txtReqAmount" layoutX="27.0" layoutY="311.0" onKeyReleased="#enableDoneButton" prefHeight="40.0" prefWidth="315.0" promptText="Requested Amount">
+            <TextField fx:id="txtReqAmount" layoutX="27.0" layoutY="311.0" onKeyReleased="#requestedAmountOnKeyReleased" prefHeight="40.0" prefWidth="315.0" promptText="Requested Amount">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtDiscountAmount" layoutX="27.0" layoutY="386.0" onKeyReleased="#enableDoneButton" prefHeight="40.0" prefWidth="222.0" promptText="Discount">
+            <TextField fx:id="txtDiscountAmount" disable="true" layoutX="27.0" layoutY="386.0" onKeyReleased="#requestedAmountOnKeyReleased" prefHeight="40.0" prefWidth="222.0" promptText="Discount">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <JFXButton fx:id="CustomerEditDone" disable="true" layoutX="25.0" layoutY="508.0" onAction="#CustomerEditDone" prefHeight="40.0" prefWidth="153.0" style="-fx-background-color: #2980b9;" text="DONE" textFill="WHITE">
+            <JFXButton fx:id="CustomerEditDone" disable="true" layoutX="25.0" layoutY="508.0" onAction="#ItemEditDoneButtonOnAction" prefHeight="40.0" prefWidth="153.0" style="-fx-background-color: #2980b9;" text="DONE" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -205,6 +205,16 @@
             <Label fx:id="lblEditedItemTotal" layoutX="100.0" layoutY="453.0" prefHeight="30.0" prefWidth="147.0" text="0.00" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="200.0" layoutY="199.0" text="Unit Price(Rs.)" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="unitPrice" layoutX="212.0" layoutY="233.0" prefHeight="26.0" prefWidth="117.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="22.0" />
                </font>
             </Label>
          </children>

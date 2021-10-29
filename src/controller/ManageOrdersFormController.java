@@ -4,21 +4,14 @@ import bo.BoFactory;
 import bo.custom.ManageOrderBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import dto.CartItemDTO;
-import dto.ItemTableDTO;
-import dto.ManageOrderDTO;
-import dto.OrderDTO;
-import entity.Item;
-import entity.Order;
+import dto.*;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -28,8 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 
 import java.io.IOException;
@@ -65,18 +57,29 @@ public class ManageOrdersFormController {
     public ImageView imgBackToLogin;
     public JFXButton btnDeleteOrder;
     public static String selectedItemID;
-    public static String orderID;
+    public static String selectedOrderID;
     public static ItemTableDTO itemDetailsMNG;
     public JFXButton btnDone;
     public OrderDTO previousOrder;
     private final ManageOrderBO manageOrderBO = (ManageOrderBO) BoFactory.getBOFactory().getBO(BoFactory.BoTypes.MANAGE_ORDERS);
     private final ObservableList<CartItemDTO> cartItems = FXCollections.observableArrayList();
+    public AnchorPane editItemInOrderContext;
+    public Label orderIDLabel;
+    public Label itemCodeLabel;
+    public Label txtQtyOnHand;
+    public Label txtItemName;
+    public TextField txtDiscountAmount;
+    public JFXButton CustomerEditDone;
+    public JFXButton btnClear;
+    public Label lblEditedItemTotal;
+    public TextField txtReqAmount;
+    public Label unitPrice;
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
-        colItemID.setCellValueFactory(new PropertyValueFactory<>("itemID"));
-        colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colQty.setCellValueFactory(new PropertyValueFactory<>("orderQty"));
+        colItemID.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        colDesc.setCellValueFactory(new PropertyValueFactory<>("itemDesc"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("reqAmount"));
         colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -178,7 +181,7 @@ public class ManageOrdersFormController {
     // When selecting a orderID(button), this method will fire and set the related order details to the table.
     private void setDataToTable(String orderID) throws SQLException, ClassNotFoundException {
         ArrayList<CartItemDTO> orderItemDetails = manageOrderBO.getAllCartInTheOrder(orderID);
-
+        selectedOrderID = orderID;
         cartItems.clear();
 
         for (CartItemDTO tempOrderItem : orderItemDetails
@@ -219,17 +222,6 @@ public class ManageOrdersFormController {
 
     @FXML   // Action when clicked the back button.
     public void backButtonMouseClicked(MouseEvent mouseEvent) throws IOException {
-        /*Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Order will be restore to previous!");
-        Optional<ButtonType> result = alert.showAndWait();
-        ButtonType button = result.orElse(ButtonType.OK);
-        if (button == ButtonType.OK) {
-
-            if (previousButton!=null) {
-                if (manageOrderBO.deleteOrder(previousOrder.getOrderID())) {
-                    new OrderController().placeOrder(preiousOrder);
-                }
-            }*/
-
             manageOrdersContext.getChildren().clear();
             manageOrdersContext.getStylesheets().clear();
             Parent load = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/PlaceOrderForm.fxml")));
@@ -256,13 +248,6 @@ public class ManageOrdersFormController {
         }
     }
 
-
-
-    /*public OrderDTO getLoadedOrder(String orderIDAfterEdited) throws SQLException, ClassNotFoundException {
-        return new OrderController().searchOrder(orderIDAfterEdited);
-        return manageOrderBO.searchOrder(orderIDAfterEdited);
-    }*/
-
     public void BackButtonMouseEN(MouseEvent mouseEvent) {
         SQBackToLogin.setFill(Color.rgb(99, 110, 114,1));
     }
@@ -281,7 +266,7 @@ public class ManageOrdersFormController {
                 Optional<ButtonType> rst = alt.showAndWait();
                 clearBoard();
             } else {
-                System.out.println("Failed!");
+                System.out.println("Failed!");  // BUG - Order doesn't delete if orderDetails are empty.
             }
         }
     }
@@ -291,19 +276,121 @@ public class ManageOrdersFormController {
         initialize();
     }
 
-    public void enableDoneButton(KeyEvent keyEvent) {
+    public void requestedAmountOnKeyReleased(KeyEvent keyEvent) throws SQLException, ClassNotFoundException {
+        String inputTextWrongFormat = "-fx-border-color:red";
+        String inputTextCorrectFormat = "-fx-border-color:green";
+
+        if (txtReqAmount.getText().isEmpty() || Integer.parseInt(txtReqAmount.getText()) == 0){
+            txtDiscountAmount.clear();
+            txtDiscountAmount.setDisable(true);
+            calculateItemTotal(0,0,0);
+            return;
+        }else{
+            txtDiscountAmount.setDisable(false);
+        }
+
+        if (!txtDiscountAmount.getText().isEmpty()){
+            if (!txtDiscountAmount.getText().matches("^[0-9]*|[.][0-9]{1,2}$")){
+                CustomerEditDone.setDisable(true);
+                return;
+            }
+        }
+
+        if (!txtReqAmount.getText().matches("^[0-9]*$")){
+            txtReqAmount.setStyle(inputTextWrongFormat);
+            CustomerEditDone.setDisable(true);
+            System.out.println("Not Matched");
+            return;
+        }
+
+        if (txtReqAmount.getText().isEmpty()){
+            CustomerEditDone.setDisable(true);
+            return;
+        }
+
+        int reqAmount = Integer.parseInt(txtReqAmount.getText());
+        int quantityOnHand = Integer.parseInt(txtQtyOnHand.getText());
+
+        if (reqAmount > quantityOnHand){
+            txtReqAmount.setStyle(inputTextWrongFormat);
+            CustomerEditDone.setDisable(true);
+            return;
+        }
+
+        CustomerEditDone.setDisable(false);
+        txtReqAmount.setStyle(inputTextCorrectFormat);
+        double discount = txtDiscountAmount.getText().isEmpty()? 0.00 : Double.parseDouble(txtDiscountAmount.getText());
+        calculateItemTotal(reqAmount,Double.parseDouble(unitPrice.getText()), discount);
 
     }
 
-    public void CustomerEditDone(ActionEvent actionEvent) {
+    private void calculateItemTotal(int requiredAmount,double unitPrice, double discount) throws SQLException, ClassNotFoundException {
+            double itemTotal = requiredAmount * unitPrice;
+            double finalItemTotal = itemTotal - (itemTotal*(discount/100));
+            lblEditedItemTotal.setText(manageOrderBO.moneyPatternValidator(finalItemTotal));
+    }
+
+    public void ItemEditDoneButtonOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        double discount = txtDiscountAmount.getText().isEmpty()? 0.00 : Double.parseDouble(txtDiscountAmount.getText());
+
+        UpdateOrderDTO updatedOrder = new UpdateOrderDTO(
+                selectedOrderID,
+                itemCodeLabel.getText(),
+                Integer.parseInt(txtQtyOnHand.getText()) - Integer.parseInt(txtReqAmount.getText()),
+                Integer.parseInt(txtReqAmount.getText()),
+                discount
+        );
+
+        if (manageOrderBO.updateOrderedItem(updatedOrder)){
+            new Alert(Alert.AlertType.CONFIRMATION,"Successfully updated!").show();
+            setDataToTable(selectedOrderID);
+            cancel(actionEvent);
+
+        }else{
+            new Alert(Alert.AlertType.WARNING,"Failed to update!").show();
+        }
 
     }
 
-    public void cancel(ActionEvent actionEvent) {
-
+    public void cancel(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        FadeTransition ft = new FadeTransition(Duration.millis(800));
+        editItemInOrderContext.setVisible(false);
+        ft.setNode(editItemInOrderContext);
+        ft.setFromValue(1.0);
+        ft.setToValue(0);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.playFromStart();
+        initialize();
     }
 
-    public void orderEditConfirm(MouseEvent mouseEvent) {
+    public void btn_itemEdit(MouseEvent mouseEvent) throws SQLException, ClassNotFoundException {
+        editItemInOrderContext.setVisible(true);
+        FadeTransition ft = new FadeTransition(Duration.millis(800));
+        ft.setNode(editItemInOrderContext);
+        ft.setFromValue(0);
+        ft.setToValue(1.0);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.playFromStart();
 
+        loadEditItemDetails();
     }
+
+    private void loadEditItemDetails() throws SQLException, ClassNotFoundException {
+
+        CartItemDTO selectedItem = cartItems.get(selectedRow);
+        orderIDLabel.setText(selectedOrderID);
+        itemCodeLabel.setText(selectedItem.getItemCode());
+        txtItemName.setText(manageOrderBO.getItemName(selectedItem.getItemCode()));
+
+        // Here all the ordered quantity and currently in stock quantity will be added.
+        txtQtyOnHand.setText(String.valueOf(manageOrderBO.getItemQuantityOnHand(selectedItem.getItemCode())+
+                selectedItem.getReqAmount()));
+        lblEditedItemTotal.setText("0.00");
+        unitPrice.setText(manageOrderBO.moneyPatternValidator(selectedItem.getUnitPrice()));
+    }
+
+
+
 }

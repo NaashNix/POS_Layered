@@ -4,6 +4,7 @@ package bo.custom;
 import bo.SuperBO;
 import dto.CartItemDTO;
 import dto.OrderDTO;
+import dto.UpdateOrderDTO;
 import entity.Customer;
 import entity.OrderDetails;
 
@@ -26,6 +27,10 @@ public interface ManageOrderBO extends SuperBO {
 
     boolean deleteItemInTheOrder(String orderID,String itemID) throws SQLException,ClassNotFoundException;
 
+    String getItemName(String itemID) throws SQLException,ClassNotFoundException;
 
+    int getItemQuantityOnHand(String itemID) throws SQLException,ClassNotFoundException;
+
+    boolean updateOrderedItem(UpdateOrderDTO dto) throws SQLException,ClassNotFoundException;
 
 }

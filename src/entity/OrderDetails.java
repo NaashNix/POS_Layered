@@ -15,6 +15,13 @@ public class OrderDetails {
         this.unitPrice = unitPrice;
     }
 
+    public OrderDetails(String orderID, String itemID, int requestedAmount, double discount) {
+        this.orderId = orderID;
+        this.itemID = itemID;
+        this.orderQty = requestedAmount;
+        this.discount = discount;
+    }
+
     public String getOrderId() {
         return orderId;
     }

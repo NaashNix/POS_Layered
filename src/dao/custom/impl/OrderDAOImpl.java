@@ -44,12 +44,12 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public boolean update(Order order) throws SQLException, ClassNotFoundException {
-        return false;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override
     public Order search(String s) throws SQLException, ClassNotFoundException {
-        return null;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override
@@ -65,6 +65,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public ArrayList<Order> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 }

@@ -51,12 +51,7 @@
                         <Font name="System Bold" size="21.0" />
                     </font>
                 </Label>
-                <JFXButton buttonType="RAISED" disable="true" layoutX="13.0" layoutY="374.0" prefHeight="23.0" prefWidth="64.0" style="-fx-background-color: #718093;" text="VIEW" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="11.0" />
-                    </font>
-                </JFXButton>
-                <JFXButton fx:id="btnModifyOrder" buttonType="RAISED" disable="true" layoutX="91.0" layoutY="374.0" prefHeight="23.0" prefWidth="84.0" style="-fx-background-color: #718093;" text="MODIFY" textFill="WHITE">
+                <JFXButton buttonType="RAISED" disable="true" layoutX="91.0" layoutY="374.0" prefHeight="23.0" prefWidth="84.0" style="-fx-background-color: #718093;" text="MODIFY" textFill="WHITE" visible="false">
                     <font>
                         <Font name="System Bold" size="10.0" />
                     </font>
@@ -176,7 +171,7 @@
             </font>
         </Label>
         <JFXComboBox fx:id="cmbItemSelector" layoutX="368.0" layoutY="318.0" onAction="#cmbItemSelectorOnAction" prefHeight="32.0" prefWidth="192.0" promptText="Select Item Code" />
-        <JFXComboBox fx:id="cmbCustomerIDs" layoutX="559.0" layoutY="49.0" prefHeight="40.0" prefWidth="263.0" promptText="Select Customer ID" />
+        <JFXComboBox fx:id="cmbCustomerIDs" layoutX="559.0" layoutY="49.0" onAction="#customerIDSelectorOnAction" prefHeight="40.0" prefWidth="263.0" promptText="Select Customer ID" />
         <Label layoutX="712.0" layoutY="265.0" text="Order ID : ">
             <font>
                 <Font name="Roboto Black" size="20.0" />

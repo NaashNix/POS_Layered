@@ -101,4 +101,27 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return null;
     }
+
+    @Override
+    public String getItemName(String itemID) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery("SELECT description FROM Item WHERE itemID=?", itemID);
+        if (resultSet.next()){
+            return resultSet.getString(1);
+        }
+        return null;
+    }
+
+    @Override
+    public int getItemQuantityOnHand(String itemID) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery("SELECT qtyOnHand FROM Item WHERE itemID=?", itemID);
+        if (resultSet.next()){
+            return resultSet.getInt(1);
+        }
+        return -1;
+    }
+
+    @Override
+    public boolean updateItemQuantity(String itemID, int qtyOnHand) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("UPDATE Item SET qtyOnHand=? WHERE itemID=?",qtyOnHand,itemID);
+    }
 }

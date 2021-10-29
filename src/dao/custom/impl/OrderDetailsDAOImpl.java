@@ -22,22 +22,22 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
     @Override
     public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override
     public boolean update(OrderDetails orderDetails) throws SQLException, ClassNotFoundException {
-        return false;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override
     public OrderDetails search(String s) throws SQLException, ClassNotFoundException {
-        return null;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override
     public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        throw new UnsupportedOperationException("Not Supported Yet");
     }
 
     @Override
@@ -58,5 +58,11 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
     @Override
     public boolean deleteItemInTheOrder(String orderID, String itemID) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate("DELETE FROM orderDetail WHERE orderID=? AND itemID=?",orderID,itemID);
+    }
+
+    @Override
+    public boolean updateOrderDetail(OrderDetails orderDetails) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("UPDATE orderDetail SET orderQty=?,discount=? WHERE orderID=? AND itemID=?",
+                orderDetails.getOrderQty(), orderDetails.getDiscount(),orderDetails.getOrderId(),orderDetails.getItemID());
     }
 }
