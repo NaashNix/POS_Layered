@@ -16,6 +16,12 @@ public class OrderDTO {
         this.items = items;
     }
 
+    public OrderDTO(String orderID, java.util.Date orderDate, String customerID) {
+        this.orderID = orderID;
+        this.orderDate = (Date) orderDate;
+        this.orderID = orderID;
+    }
+
     public String getOrderID() {
         return orderID;
     }

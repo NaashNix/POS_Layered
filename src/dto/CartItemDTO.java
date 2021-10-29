@@ -1,7 +1,5 @@
 package dto;
 
-import java.util.ArrayList;
-
 public class CartItemDTO {
     private String itemCode;
     private String itemDesc;
@@ -30,6 +28,14 @@ public class CartItemDTO {
         this.setUnitPrice(unitPrice);
         this.setReqAmount(reqAmount);
         this.setTotal(total);
+        this.setDiscount(discount);
+    }
+
+    public CartItemDTO(String itemID, String itemDescription, double unitPrice, int orderQty, double discount) {
+        this.setItemCode(itemID);
+        this.setItemDesc(itemDescription);
+        this.setUnitPrice(unitPrice);
+        this.setReqAmount(orderQty);
         this.setDiscount(discount);
     }
 

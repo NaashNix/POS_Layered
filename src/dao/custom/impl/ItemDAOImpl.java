@@ -92,4 +92,13 @@ public class ItemDAOImpl implements ItemDAO {
 
         return itemIDs;
     }
+
+    @Override
+    public String getItemDescription(String itemID) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery("SELECT description FROM Item WHERE itemID=?", itemID);
+        if (resultSet.next()){
+            return resultSet.getString(1);
+        }
+        return null;
+    }
 }

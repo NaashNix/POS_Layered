@@ -11,7 +11,6 @@ import dto.CustomerPlaceOrderDTO;
 import dto.OrderDTO;
 import dto.OrderDetailsDTO;
 import entity.Item;
-import entity.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,7 +31,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -47,7 +45,7 @@ public class PlaceOrderFormController{
     public Rectangle addCustomerSQ;
     public ImageView imgAddCustomer;
     public static Stage stage;
-    public EventHandler<MouseEvent> handler = MouseEvent::consume;
+    private final EventHandler<MouseEvent> handler = MouseEvent::consume;
     public Label txtCustomerName;
     public Label txtCustomerTitle;
     public Label txtCustomerAddress;
@@ -67,7 +65,7 @@ public class PlaceOrderFormController{
     public TableColumn<CartItemDTO,Integer> colQty;
     public TableColumn<CartItemDTO,Double> colPrice;
     public Label txtGrandTotal;
-    public DecimalFormat df=new DecimalFormat("#.##");
+    private final DecimalFormat df=new DecimalFormat("#.##");
     public JFXButton btnPay;
     public Label txtItemTotal;
     public Label lblDiscountedAmount;
@@ -243,8 +241,8 @@ public class PlaceOrderFormController{
         btnAddToCart.setDisable(true);
     }
 
-    @FXML
-    public void enableAddToCart(KeyEvent inputMethodEvent) throws InvocationTargetException , NumberFormatException{
+    @FXML   // Algorithm to enable the "Add To Cart" button.
+    public void enableAddToCart(KeyEvent inputMethodEvent) throws NumberFormatException{
         if (!txtReqAmount.getText().matches("^[0-9]*$")){
             txtReqAmount.setStyle("-fx-border-color:red");
             btnAddToCart.setDisable(true);
@@ -437,6 +435,7 @@ public class PlaceOrderFormController{
         lblSubTotal.setText(placeOrderBO.moneyPatternValidator(total+totalDiscountedAmount));
     }
 
+    @FXML   // "PAY" button action. This will place the order.
     public void btn_payOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
         ArrayList<OrderDetailsDTO> cartItemList = new ArrayList<>();
@@ -465,6 +464,11 @@ public class PlaceOrderFormController{
             setLblOrderID();
             clearCart(actionEvent);
             btnPay.setDisable(true);
+            cartQueue.clear();
+            tblCart.refresh();
+            txtGrandTotal.setText("0.00");
+            lblSubTotal.setText("0.00");
+            lblDiscountedAmount.setText("0.00");
         }else{
             new Alert(Alert.AlertType.WARNING,"Failed!").show();
             System.out.println("Failed --> "+lblOrderID.getText());
@@ -472,5 +476,13 @@ public class PlaceOrderFormController{
 
     }
 
+    public void removeSelectedItemFromOrder(ActionEvent actionEvent) {
+        cartQueue.remove(tableSelectedRow);
+        calculateGrandTotal();
+        tblCart.refresh();
+        cmbItemSelector.getSelectionModel().clearSelection();
+        //MouseEvent mouseEvent = null;
+        //(mouseEvent);
+    }
 
 }

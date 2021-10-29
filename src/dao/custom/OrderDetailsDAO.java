@@ -3,6 +3,11 @@ package dao.custom;
 import dao.CrudDAO;
 import entity.OrderDetails;
 
-public interface OrderDetailsDAO extends CrudDAO<OrderDetails,String> {
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+public interface OrderDetailsDAO extends CrudDAO<OrderDetails,String> {
+    ArrayList<OrderDetails> getAllOrderDetailsFromOrderID(String orderID) throws SQLException,ClassNotFoundException;
+
+    boolean deleteItemInTheOrder(String orderID,String itemID) throws SQLException,ClassNotFoundException;
 }

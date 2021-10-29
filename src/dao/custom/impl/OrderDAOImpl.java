@@ -39,7 +39,7 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
+        return CrudUtil.executeUpdate("DELETE FROM Orders WHERE orderID=?", s);
     }
 
     @Override
@@ -50,6 +50,17 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public Order search(String s) throws SQLException, ClassNotFoundException {
         return null;
+    }
+
+    @Override
+    public ArrayList<Order> getAllOrdersRelatedToOneCustomer(String customerID) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery("SELECT*FROM Orders WHERE custID=?", customerID);
+        ArrayList<Order> relatedOrders = new ArrayList<>();
+        while (resultSet.next()){
+            relatedOrders.add(new Order(resultSet.getString("orderID"),resultSet.getDate("orderDate"),
+                    resultSet.getString("custID")));
+        }
+        return relatedOrders;
     }
 
     @Override

@@ -2,6 +2,7 @@ package bo;
 
 import bo.custom.impl.CustomerBOImpl;
 import bo.custom.impl.ItemBOImpl;
+import bo.custom.impl.ManageOrderBOImpl;
 import bo.custom.impl.PlaceOrderBOImpl;
 
 public class BoFactory {
@@ -26,13 +27,15 @@ public class BoFactory {
                 return new CustomerBOImpl();
             case ITEM:
                 return new ItemBOImpl();
+            case MANAGE_ORDERS:
+                return new ManageOrderBOImpl();
             default:
                 return null;
         }
     }
 
     public enum BoTypes{
-        PLACE_ORDER,CUSTOMER,ITEM
+        PLACE_ORDER,CUSTOMER,ITEM,MANAGE_ORDERS
     }
 
 }
