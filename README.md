@@ -3,7 +3,7 @@
 # POS System Using Layered Architecture
 ![imag](./src/view/assets/images/Screenshot%20from%202022-09-07%2011-58-34.png)
 
-#### This POS system developed using <code>Java</code> and User Interfaces developed using <code>JavaFX</code> library. As well this project is developed from the <mark>Layered Architecture. </mark>
+#### This POS system developed using <code>Java</code> and User Interfaces developed using <code>JavaFX</code> library. As well this project is developed from the <mark>Layered Architecture. </mark> <code>Mysql </code> is used as the database. No ORM used for this  project. This project was done for the Layered Architecture Module final assignment. 
 
 * ### Layers Structure
    1. View
