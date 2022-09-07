@@ -75,7 +75,6 @@ public class PlaceOrderFormController{
     public Label txtCustomerNameLabel;
     public Label txtOrderIDLabel;
     public JFXButton btnRemoveRow;
-    public JFXButton btnModifyOrder;
     public AnchorPane placeOrderContext;
     public Rectangle SQBackToLogin;
     public ImageView imgBackToLogin;
@@ -99,7 +98,6 @@ public class PlaceOrderFormController{
                 btnRemoveRow.setDisable(true);
             }else{
                 btnRemoveRow.setDisable(false);
-                btnModifyOrder.setDisable(false);
             }
         });
 
@@ -486,7 +484,7 @@ public class PlaceOrderFormController{
 
     @FXML   // action for the customer id combo box.
     public void customerIDSelectorOnAction(ActionEvent actionEvent) {
-        if (cmbItemSelector.getSelectionModel().isEmpty()){
+        if (cmbCustomerIDs.getSelectionModel().isEmpty()){
             cmbItemSelector.setDisable(true);
             cmbItemSelector.getSelectionModel().clearSelection();
 

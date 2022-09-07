@@ -68,8 +68,6 @@ public class EditItemDetailsFormController {
         restoreImageView.setImage(image);
     }
 
-
-
     @FXML   // Cancel button action.
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();

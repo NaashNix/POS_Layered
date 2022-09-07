@@ -17,7 +17,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 public class AddCustomerFormController implements Initializable {
 
@@ -142,34 +141,5 @@ public class AddCustomerFormController implements Initializable {
         return true;
     }
 
-/*    public void keyReleaseValidate(KeyEvent keyEvent) {
-        Pattern namePattern = Pattern.compile("^[a-zA-Z ]*$");
-         // Pattern moneyPattern = Pattern.compile("^[1-9][0-9]*([.][0-9]{2})?$");
-        Pattern idPattern = Pattern.compile("^[0-9]{12}$");
-        Pattern telephonePattern = Pattern.compile("^[0-9]{10}$");
-        Pattern emailPattern = Pattern.compile("^[A-z0-9]{3,}[@][a-z]{2,}[.](com|lk|uk|[a-z]{2,})$");
 
-        TextField currentField = (TextField) keyEvent.getSource();
-        Pattern patternToPass = null;
-        switch (currentField.getId()){
-            case "txtCustomerName" : {patternToPass=namePattern; break;}
-            case "txtCustomerAddress" : {patternToPass=idPattern; break;}
-            case "txtCustomerCity" : {patternToPass=telephonePattern; break;}
-            case "txtPostalCode" : {patternToPass=emailPattern; break;}
-        }
-        if (patternToPass != null) {
-            validateSingle(currentField,patternToPass);
-        }
-    }*/
-
-    // Validate the forms field when pattern is given.
-    public void validateSingle(TextField textField, Pattern pattern){
-        if (!pattern.matcher(textField.getText()).matches()){
-            if (!textField.getText().isEmpty()){
-                textField.setStyle("-fx-border-color:red");
-            }
-        }else{
-            textField.setStyle("-fx-border-color:green");
-        }
-    }
 }

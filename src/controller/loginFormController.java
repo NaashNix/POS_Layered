@@ -64,7 +64,7 @@ public class loginFormController {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setResizable(false);
-            stage.setTitle("Co-operative Bank Management ");
+            stage.setTitle("Point Of Sale System");
             stage.show();
             Stage loginStage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             loginStage.close();

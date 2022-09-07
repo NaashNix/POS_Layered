@@ -6,7 +6,8 @@ import dao.custom.LoginDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginDAOImpl implements LoginDAO {
+public class
+LoginDAOImpl implements LoginDAO {
 
     @Override
     public String getUserRollByID(String userID) throws SQLException, ClassNotFoundException {

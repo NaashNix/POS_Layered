@@ -1,11 +1,12 @@
 package dto;
 
 public class CartItemDTO {
-    private String itemCode;
+
     private String itemDesc;
     private double unitPrice;
     private int reqAmount;
     private double total;
+    private String itemCode;
     private double discount;
 
     public CartItemDTO(){}
@@ -86,4 +87,6 @@ public class CartItemDTO {
     public void setDiscount(double discount) {
         this.discount = discount;
     }
+
+
 }
